@@ -306,6 +306,7 @@ export default {
             .then((result) => {
                 this.getProductsList();
                 this.$forceUpdate();
+                location.reload();
                 alert(result.data.deleteProduct);
                 
             })

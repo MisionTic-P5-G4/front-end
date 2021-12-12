@@ -10,16 +10,17 @@
             <button v-on:click="loadAboutUs">Acerca de nosotros</button>
           </div>
           <div>
-            <button v-if="!is_auth" v-on:click="loadLogIn">Ingresar</button>
-            <button v-if="!is_auth" v-on:click="loadSignUp">Registrarse</button>
-            <button v-if="true" v-on:click="logOut"> Cerrar Sesión </button>
+            <button v-if="!(gettingLoggedState || loggedOk)" v-on:click="loadLogIn">Ingresar</button>
+            <button v-if="!(gettingLoggedState || loggedOk)" v-on:click="loadSignUp">Registrarse</button>
+            <button v-if="gettingLoggedState || loggedOk" v-on:click="logOut"> Cerrar Sesión </button>
+            <button v-if="true" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#xdxd"> Carrito <span>{{gettingCarItemNum}}</span></button>
           </div>
         </nav>   
     </header>
 
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div v-if="is_auth" class="col-auto px-0">
+            <div v-if="gettingLoggedState || loggedOk" class="col-auto px-0">
 
                 <div id="sidebar" class="collapse collapse-horizontal show border-end">
 
@@ -53,6 +54,7 @@
                   v-on:completedLogIn="completedLogIn"
                   v-on:completedSignUp="completedSignUp"
                   v-on:logOut="logOut"
+                  v-on:getCartItems="getCartItems"
                 >
                 </router-view>
 
@@ -94,20 +96,41 @@ export default {
     },
     gettingAdmin: {
       get: function(){
-        if (localStorage.getItem("is_admin") === "true")
-          return this.is_admin = true
-        else
-          return this.is_admin = false
+          return JSON.parse(localStorage.getItem("is_admin"))
+
       },
       set: function(){}
     },
 
     gettingId: {
       get: function(){
-          return this.userId = localStorage.getItem("user_Id") || "";
+        try{
+          return this.userId = localStorage.getItem("user_Id") || null;
+        }
+        catch{
+          return " "
+        } 
       },
       set: function(){ }
+    },
+
+    gettingCarItemNum:{
+      get: function(){
+        return this.cartItems || ""
+      },
+      set: function(){}
+    },
+
+    gettingLoggedState:{
+      get: function(){
+          return this.loggedOk = JSON.parse(localStorage.getItem("logged_Ok")) || false
+
+      },
+      set: function(){
+
+      }
     }
+    
 
   },
 
@@ -116,7 +139,8 @@ export default {
       is_admin: "",
       username: "",
       loggedOk: false,
-      userId: ""
+      userId: "",
+      cartItems: ""
     }
   },
 
@@ -163,7 +187,9 @@ export default {
       await this.getUserData();
       alert("Autenticación Exitosa");
 			this.loadUserProducts();
-      
+      this.loggedOk = true;
+      localStorage.setItem("logged_Ok",true);
+      //location.reload();
     },
 
     completedSignUp: function(data) {
@@ -173,10 +199,23 @@ export default {
 
     logOut: function () {
 			localStorage.clear();
-      localStorage
-			alert("Sesión Cerrada");
+      this.loggedOk = false;
+      localStorage.setItem("logged_Ok",false);
       this.loadLogIn();
+      this.$forceUpdate();
+			alert("Sesión Cerrada");
 		},
+
+    getCartItems: function(cartData){
+      let myXD = ""
+      try{
+        myXD = parseInt(cartData)
+      }
+      catch{
+        myXD = " "
+      }
+      this.cartItems = myXD;
+    },
 
     getUserData: async function(){
         await this.$apollo

@@ -19,7 +19,7 @@
                     <td>{{userProduct.quantity}}</td>
                     <!-- <td>{{product.imgSrc.substring(0,3)}}</td> -->
                     <td>
-                        <button v-on:click="deleteUserProduct(userProduct.productId)" type="bustton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Delete" data-bs-whatever="@mdo">Borrar</button>
+                        <button v-on:click="getDeleteProductId(userProduct.productId)" type="bustton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Delete">Borrar</button>
                     </td>
                 </tr>
             </tbody>
@@ -27,27 +27,32 @@
         </div>
     </div>
 
-<!-- <div class ="cuerpo">
-    <br>
-    <div class ="catalogue">
-        <ul class="card-wrapper">
-            
-            <li class="card" v-for="userProduct in userProducts" v-bind:key="userProduct.id">
-                <img :src="product.imgSrc" alt=''>
-                <div class="row">
-                    <div class="col col align-self-center">
-                        <h3>{{product.name}}</h3>
-                        <p>${{product.price}}</p>
-                    </div>
-                    <div class="col col-lg-4 align-self-end">
-                        <button v-on:click="addToCart(product)" class="btn btn-primary">Añadir</button>
-                    </div>
-                </div>
-            </li>
-            
-        </ul>
-    </div> 
-</div> -->
+    <div class="modal fade" id="Delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Escribe id para borrar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <h3> ¿Estas seguro de borrar tu producto? "<span>{{idUserProductDelete}}</span>"?</h3>
+                <!-- <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Id:</label>
+                    <input type="text" class="form-control" id="recipient-name" >
+                </div> -->
+                <!-- <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Message:</label>
+                    <textarea class="form-control" id="message-text"></textarea>
+                </div> -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button data-bs-dismiss="modal" v-on:click="deleteUserProduct" type="button" class="btn btn-danger">Borrar</button>
+            </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -59,6 +64,15 @@
 import gql from "graphql-tag";
 export default {
     name: "UserProducts",
+
+    // computed: {
+    //     reloadUserProducts:{
+    //         get: async function(){
+    //             await this.userProducts();
+    //             return userProducts;
+    //         }
+    //     }
+    // },
 
     data: function(){
         return {
@@ -99,7 +113,7 @@ export default {
          })
          .catch((error) => {
              console.log(error)
-           alert("ERROR: Fallo geUserData");
+           alert("ERROR: Fallo getUserData");
          });
      },
 
@@ -123,6 +137,7 @@ export default {
             })
             .then((result) => {
                 this.userProducts = result.data.getUserProductsByUserId
+
             })
             .catch((error) => {
                 console.log(error)
@@ -130,7 +145,7 @@ export default {
             });
         },
 
-        deleteUserProduct: async function(id){
+        deleteUserProduct: async function(){
             await this.$apollo
             .mutate({
             mutation: gql`
@@ -139,19 +154,26 @@ export default {
             }
             `,
             variables: {
-                productId: id
+                productId: this.idUserProductDelete
             }
             })
             .then((result) => {
                 alert("result.data.deleteUserProduct");
                 this.getUserProducts();
+                location.reload();
             })
             .catch((error) => {
                 console.log(error)
             alert("ERROR: Fallo elimnando producto de usuario");
+            location.reload();
             });
-            //this.getUserProducts();
+
+            
         },
+
+        getDeleteProductId: function(id){
+            this.idUserProductDelete = id;
+        }
 
     },
     created: async function(){

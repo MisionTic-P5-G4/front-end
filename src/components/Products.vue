@@ -1,7 +1,5 @@
 <template>
 
-<!-- Large modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#xdxd" >Large modal</button>
 
 <!-- Shopping cart -->
 <div class="modal fade bd-example-modal-lg" id="xdxd" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -217,47 +215,60 @@ import gql from "graphql-tag";
             },
             })
             .then((result) => {
+                console.log("added user product")
                 //result.data.createdUserProduct.productId
-                
+     
             })
             .catch((error) => {
+                console.log(error);
                 alert("ERROR: Fallo addUserData");
             });
         },
 
         addUserProducts: async function(){
-            const isUser = localStorage.getItem("user_Id") || "";
-            if (isUser != ""){
+            let isUser = "";
+            isUser = localStorage.getItem("user_Id") || "";
+            if ( (isUser == "") || (isUser == null )|| (isUser == false)){
+
+                this.$router.push({name: "signUp"})
+                this.cartProducts.length = 0;
+                this.$emit("getCartItems",this.cartProducts.length)
+            }
+
+            else{
+                console.log("on Else")
                 const intIsUser = parseInt(isUser);
                 await this.getUserProducts(intIsUser);
+
+                if (this.userProducts.length == 0){
+                    this.cartProducts.forEach(element => {
+                        this.addUserProduct(element.id, element.quantity)
+                    });
+                }
+                else {
+                    let elementsId = [];
+                    this.cartProducts.forEach(element => {
+                        this.userProducts.forEach(item => {
+                            if (element.id == item.productId){
+                                const myQtty = item.quantity + element.quantity;
+                                this.updateUserProducts(item.productId, myQtty)
+                                elementsId.push(element.id)
+                            }
+                        })
+                    });
+                    elementsId.forEach(element => {
+                        this.deleteCartItem(element)
+                    });
+                    console.log("second else")
+                    this.cartProducts.forEach(element => {
+                        this.addUserProduct(element.id, element.quantity)
+                    });
+                }
+                this.cartProducts.length = 0;
+                //alert("Comprados con éxito");
+
             }
 
-            if (this.userProducts.length == 0){
-                this.cartProducts.forEach(element => {
-                    this.addUserProduct(element.id, element.quantity)
-                });
-            }
-            else {
-                let elementsId = [];
-                this.cartProducts.forEach(element => {
-                    this.userProducts.forEach(item => {
-                        if (element.id == item.productId){
-                            const myQtty = item.quantity + element.quantity;
-                            this.updateUserProducts(item.productId, myQtty)
-                            elementsId.push(element.id)
-                        }
-                    })
-                });
-                elementsId.forEach(element => {
-                    this.deleteCartItem(element)
-                });
-
-                this.cartProducts.forEach(element => {
-                    this.addUserProduct(element.id, element.quantity)
-                });
-            }
-            this.cartProducts.length = 0;
-            //alert("Comprados con éxito");
         },
 
         addToCart: function (myProductId){
@@ -274,7 +285,7 @@ import gql from "graphql-tag";
                 this.cartProducts.push(object)
             } 
             this.addOneQtty(object.id)
-            
+            this.$emit("getCartItems",this.cartProducts.length)
         },
 
         subsOneQtty: function (myCartPrdct){
@@ -298,6 +309,7 @@ import gql from "graphql-tag";
         deleteCartItem: function(myCartPrdctId){
             const myIndex = this.cartProducts.findIndex(cartProduct => cartProduct.id === myCartPrdctId)
             this.cartProducts.splice(myIndex,1)
+            this.$emit("getCartItems",this.cartProducts.length)
             this.getSummary();
         },
 
@@ -621,7 +633,7 @@ img-replace {
     box-shadow: none;
     color: white;
     -webkit-box-shadow: none;
-    -webkit-user-select: none;
+    /*-webkit-user-select: none;*/
     transition: none
 } 
 
