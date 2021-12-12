@@ -26,8 +26,8 @@
               id="sidebar-nav"
               class="list-group border-0 rounded-0 text-sm-start min-vh-100"
             >
-              <br />
-              <h2>
+
+              <h2> Hola!
                 <span>{{ gettingUsername }}</span>
               </h2>
 

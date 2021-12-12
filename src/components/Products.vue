@@ -83,6 +83,9 @@ import gql from "graphql-tag";
         border-radius: 0.5rem;
         box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
         padding-bottom: 1rem;
+        height: 100%;
+
+
     }
     .list-group ul{
         display: flex;
@@ -90,6 +93,7 @@ import gql from "graphql-tag";
         width: 130px;
         margin: 0;
         padding: 0;
+        height: 100%;
     }
     .list-group ul button{
         width: 90%;
@@ -101,6 +105,10 @@ import gql from "graphql-tag";
     .list-group ul button:hover{
         background-color: rgb(187, 187, 187);
         cursor: pointer;
+    }
+
+    .list-group h2 span{
+        font-size: 1.5rem;
     }
 
     body{
