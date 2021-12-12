@@ -1,23 +1,53 @@
 <template>
 
-<div>
-    <button>Toggler</button>
-        <div class ="cuerpo">
-        <br>
-        <div class ="catalogue">
-            <ul class="card-wrapper">
-                
-                    <li class="card" v-for="product in products" v-bind:key="product.id">
-                    <img :src="product.imgSrc" alt=''>
-                    <h3><a href="/producto">{{product.name}}</a></h3>
-                    <p>${{product.price}}</p>
-                </li>
-                
-                
-            </ul>
-        </div> 
-    </div>    
-</div>
+    <div class="container-grid">
+        <h2>Mis Productos</h2>
+       
+        <div class="container" >
+            <table class="table table-hover" >
+            <thead>
+                <tr>
+                    <th scope="col">Id Producto</th>
+                    <th scope="col">Cantidad</th>
+                    <!-- <th scope="col">imgSource</th> -->
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="userProduct in userProducts" v-bind:key="userProduct.id">
+                    <td>{{userProduct.productId}}</td>
+                    <td>{{userProduct.quantity}}</td>
+                    <!-- <td>{{product.imgSrc.substring(0,3)}}</td> -->
+                    <td>
+                        <button v-on:click="deleteUserProduct(userProduct.productId)" type="bustton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Delete" data-bs-whatever="@mdo">Borrar</button>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+
+<!-- <div class ="cuerpo">
+    <br>
+    <div class ="catalogue">
+        <ul class="card-wrapper">
+            
+            <li class="card" v-for="userProduct in userProducts" v-bind:key="userProduct.id">
+                <img :src="product.imgSrc" alt=''>
+                <div class="row">
+                    <div class="col col align-self-center">
+                        <h3>{{product.name}}</h3>
+                        <p>${{product.price}}</p>
+                    </div>
+                    <div class="col col-lg-4 align-self-end">
+                        <button v-on:click="addToCart(product)" class="btn btn-primary">Añadir</button>
+                    </div>
+                </div>
+            </li>
+            
+        </ul>
+    </div> 
+</div> -->
 
 
 
@@ -26,77 +56,107 @@
 
 <script>   
 
-
+import gql from "graphql-tag";
 export default {
     name: "UserProducts",
 
     data: function(){
         return {
-            product: [],
-            products: [],
-            createProduct: {
-                name: "",
-                price: 0,
-                service: false,
-                imgSrc: ""
+            userProducts: [],
+            userProduct: {
+                id: "",
+                userId: "",
+                productId: "",
+                quantity: "",
+                dateModified:""
             },
-            modifyProduct: {
-                name: "",
-                price: "",
-                service: false,
-                imgSrc: ""
-            },
-            idProductDelete: "",
-            idProductModi: ""
+            idUserProductDelete: "",
+            userLogged: ""
         }
     },
 
     methods: {
-        getUserData: async function(){
 
+     getUserData: async function(){
+         await this.$apollo
+         .query({
+         query: gql`
+             query UserDetailById {
+                 userDetailById {
+                     id
+                     username
+                     name
+                     email
+                     phone
+                     admin
+                 }
+             }
+             `,
+                
+         })
+         .then((result) => {
+            this.userLogged = result.data.userDetailById.id
+         })
+         .catch((error) => {
+             console.log(error)
+           alert("ERROR: Fallo geUserData");
+         });
+     },
+
+        getUserProducts: async function(){
             await this.$apollo
             .query({
             query: gql`
-                query UserDetailById {
-                    userDetailById {
+                query GetUserProductsByUserId($getUserProductsByUserIdId: Int!) {
+                    getUserProductsByUserId(id: $getUserProductsByUserIdId) {
                         id
-                        username
-                        name
-                        email
-                        phone
-                        admin
+                        userId
+                        productId
+                        quantity
+                        dateModified
                     }
                 }
-                `,
-                
+            `,
+            variables: {
+                getUserProductsByUserIdId: this.userLogged
+            },
             })
             .then((result) => {
-                let dataGet = {
-                        id: result.data.userDetailById.id,
-                        username: result.data.userDetailById.username,
-                        name: result.data.userDetailById.name,
-                        email: result.data.userDetailById.email,
-                        phone: result.data.userDetailById.phone,
-                        admin: result.data.userDetailById.admin
-                };
-                this.userInfo = dataGet;
+                this.userProducts = result.data.getUserProductsByUserId
             })
             .catch((error) => {
                 console.log(error)
-            alert("ERROR: Fallo geUserData");
+            alert("ERROR: Fallo getUserData");
             });
         },
 
-        deleteSoli: function(id) {
-
+        deleteUserProduct: async function(id){
+            await this.$apollo
+            .mutate({
+            mutation: gql`
+            mutation DeleteUserProduct($productId: Int!) {
+                deleteUserProduct(productId: $productId)
+            }
+            `,
+            variables: {
+                productId: id
+            }
+            })
+            .then((result) => {
+                alert("result.data.deleteUserProduct");
+                this.getUserProducts();
+            })
+            .catch((error) => {
+                console.log(error)
+            alert("ERROR: Fallo elimnando producto de usuario");
+            });
+            //this.getUserProducts();
         },
 
-        ModiSoli: function(id) {
-
-        }
     },
     created: async function(){
-        this.getSolicitudesList();
+        await this.getUserData();
+        await this.getUserProducts();
     }
 }
 
@@ -105,7 +165,6 @@ export default {
 
 
 <style>
-
 
 
 </style>

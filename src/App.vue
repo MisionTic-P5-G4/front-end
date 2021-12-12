@@ -12,7 +12,7 @@
           <div>
             <button v-if="!is_auth" v-on:click="loadLogIn">Ingresar</button>
             <button v-if="!is_auth" v-on:click="loadSignUp">Registrarse</button>
-            <button v-if="is_auth" v-on:click="logOut"> Cerrar Sesión </button>
+            <button v-if="true" v-on:click="logOut"> Cerrar Sesión </button>
           </div>
         </nav>   
     </header>
@@ -100,6 +100,13 @@ export default {
           return this.is_admin = false
       },
       set: function(){}
+    },
+
+    gettingId: {
+      get: function(){
+          return this.userId = localStorage.getItem("user_Id") || "";
+      },
+      set: function(){ }
     }
 
   },
@@ -107,7 +114,9 @@ export default {
   data: function(){
     return {
       is_admin: "",
-      username: ""
+      username: "",
+      loggedOk: false,
+      userId: ""
     }
   },
 
@@ -164,9 +173,9 @@ export default {
 
     logOut: function () {
 			localStorage.clear();
+      localStorage
 			alert("Sesión Cerrada");
       this.loadLogIn();
-      location.reload();
 		},
 
     getUserData: async function(){
@@ -197,6 +206,7 @@ export default {
             };
             localStorage.setItem("is_admin", dataGet.admin);
             localStorage.setItem("username", dataGet.username);
+            localStorage.setItem("user_Id", dataGet.id);
         })
         .catch((error) => {
             console.log(error)
