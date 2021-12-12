@@ -297,10 +297,7 @@ export default {
 </script>
 
 <style>
-body{
-    background: #f7f7ff;
-    margin-top:20px;
-}
+
 .card {
     position: relative;
     display: flex;

@@ -102,30 +102,11 @@ import gql from "graphql-tag";
         background-color: rgb(187, 187, 187);
         cursor: pointer;
     }
-    .cuerpo{
-        display: flex;
-        flex-wrap:wrap;
-        justify-content: center;
-    }
+
     body{
         margin: 0 0 0 0;
     }
-    .header{
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 10vh; 
-        min-height: 100px;
-        background-color: #283747 ;
-        color:#ffffff  ;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .header h1{
-        width: 20%;
-        text-align: center;
-    }
+
     .card {
     /*
     --card-gradient: rgba(0, 0, 0, 0.8);
@@ -143,6 +124,7 @@ import gql from "graphql-tag";
     );
     overflow: hidden;
     }
+
     img {
     border-radius: 0.5rem 0.5rem 0 0;
     width: 100%;
@@ -197,9 +179,5 @@ import gql from "graphql-tag";
     width: 120ch;
     padding-left: 1rem;
     padding-right: 1rem;
-    }
-
-    html {
-        background-color: white;
     }
 </style>
