@@ -14,17 +14,23 @@
     <div class="card_part card_part-four">
     </div>
   </div> 
-    
-  <div class="cuerpo">
-    <h1>Guarderia</h1>   
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex voluptatum ut nobis molestias sunt minima labore ullam impedit officiis enim. Perferendis provident eaque ad numquam, quisquam corporis explicabo delectus unde?
-      Esse laboriosam exercitationem alias iste praesentium necessitatibus libero deserunt recusandae voluptate nisi, quasi reprehenderit ea, ipsa eveniet unde impedit, delectus adipisci labore similique perspiciatis illum inventore eligendi rerum magni. Repudiandae!
-      At exercitationem officia neque voluptatem cum assumenda inventore nemo vel ipsa, praesentium placeat debitis optio consequuntur ducimus, totam atque tempora non? Rem unde voluptatem corrupti. Id fugit nisi possimus ipsam.
-      Obcaecati dolorem modi nulla, provident quae eveniet illo ipsum perferendis. Aliquam consectetur et repudiandae incidunt? Ab officiis delectus corporis, nulla beatae qui fugiat culpa libero voluptatem, minus, maiores assumenda. Delectus?
-      Adipisci laborum ratione sint dolores debitis, optio pariatur porro dolorum at qui, recusandae eius quod deleniti rerum expedita temporibus. Doloremque distinctio ad quo officia sint fugit cupiditate pariatur quae labore!
-    </p>
-  </div>
+    <br/>
+    <div class="cuerpo">
+      <h1>GUARDERÍA CANINOS FELICES</h1>
+      <p>
+        Un proyecto creado con la intensión de prestar un servicio amigable, que
+        no solo busca resolver los problemas de salud, brindar un excelente
+        producto para el entretenimiento de ellos sino también en los métodos
+        complementarios para el bienestar de las mascotas del sector, por lo que
+        hemos implementado una tienda virtual pensando en nuestras queridas
+        mascota. Encontrarás diferentes servicios como consulta general,
+        ecografía, rayos x, cirugía, profilaxis, entre otros. Y en nuestra
+        increíble tienda podrás encontrar medicamentos para el cuidado de la
+        salud de tu peludo, cuidado corporal como cremas, cepillos, jabones,
+        colonias y complementos, además contamos con productos la diversión y
+        felicidad de tu mascota. ¡Los esperamos!
+      </p>
+    </div>
 </div>
 <br>
 </template> 
@@ -70,7 +76,13 @@ export default {
     padding-left: 15%;
     padding-right: 15% ;
   }
-
+.cuerpo h1 {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  margin-top: 2rem;
+}
+.cuerpo p {
+  text-align: justify;
+  }
 
   img {
     border-radius: 0.5rem 0.5rem 0 0;
