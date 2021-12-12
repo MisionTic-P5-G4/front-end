@@ -1,92 +1,75 @@
 <template>
-  <div id="app" class="app">
+<div id="app" class="app">
+
     <header class="header">
-      <nav>
-        <div>
-          <button v-on:click="loadHome">Guarderia</button>
-          <button v-on:click="loadProducts">Productos</button>
-          <button v-on:click="loadAboutUs">Acerca de nosotros</button>
-        </div>
-        <div>
-          <button v-if="!is_auth" v-on:click="loadLogIn">Ingresar</button>
-          <button v-if="!is_auth" v-on:click="loadSignUp">Registrarse</button>
-          <button v-if="is_auth" v-on:click="logOut">Cerrar Sesión</button>
-        </div>
-      </nav>
+        <nav>
+          <div>
+            <button v-on:click="loadHome">Guarderia</button>
+            <button v-on:click="loadProducts">Productos</button>
+            <button v-on:click="loadAboutUs">Acerca de nosotros</button>
+          </div>
+          <div>
+            <button v-if="!(gettingLoggedState || loggedOk)" v-on:click="loadLogIn">Ingresar</button>
+            <button v-if="!(gettingLoggedState || loggedOk)" v-on:click="loadSignUp">Registrarse</button>
+            <button v-if="gettingLoggedState || loggedOk" v-on:click="logOut"> Cerrar Sesión </button>
+            <button v-if="true" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#xdxd"> Carrito <span>{{gettingCarItemNum}}</span></button>
+          </div>
+        </nav>   
     </header>
 
     <div class="container-fluid">
-      <div class="row flex-nowrap">
-        <div v-if="is_auth" class="col-auto px-0">
-          <div
-            id="sidebar"
-            class="collapse collapse-horizontal show border-end"
-          >
-            <div
-              id="sidebar-nav"
-              class="list-group border-0 rounded-0 text-sm-start min-vh-100"
-            >
+        <div class="row flex-nowrap">
+            <div v-if="gettingLoggedState || loggedOk" class="col-auto px-0">
 
-              <h2> Hola!
-                <span>{{ gettingUsername }}</span>
-              </h2>
+                <div id="sidebar" class="collapse collapse-horizontal show border-end">
 
-              <div class="divider d-flex align-items-center my-4">
-                <p class="text-center fw-bold mx-3 mb-0"></p>
-              </div>
+                    <div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start min-vh-100">
+                        <br>
+                        <h2><span>{{gettingUsername}}</span></h2>
 
-              <button v-on:click="loadUserProducts" class="btn btn-light">
-                Mis Productos
-              </button>
-              <button v-on:click="loadUserInfo" class="btn btn-light">
-                Mi info
-              </button>
-              <div
-                v-if="gettingAdmin"
-                class="divider d-flex align-items-center my-4"
-              >
-                <p v-if="gettingAdmin" class="text-center fw-bold mx-3 mb-0">
-                  Admin
-                </p>
-              </div>
-              <button
-                v-if="gettingAdmin"
-                v-on:click="loadAdminProducts"
-                class="btn btn-light"
-              >
-                Productos
-              </button>
-              <button
-                v-if="gettingAdmin"
-                v-on:click="loadAdminUsers"
-                class="btn btn-light"
-              >
-                Usuarios
-              </button>
+                        <div class="divider d-flex align-items-center my-4">
+                          <p class="text-center fw-bold mx-3 mb-0"></p>
+                        </div>
+
+                        <button v-on:click="loadUserProducts" class="btn btn-light">Mis Productos</button>
+                        <button v-on:click="loadUserInfo" class="btn btn-light">Mi info</button> 
+                        <div v-if="gettingAdmin" class="divider d-flex align-items-center my-4">
+                          <p v-if="gettingAdmin" class="text-center fw-bold mx-3 mb-0"> Admin</p>
+                        </div>
+                        <button v-if="gettingAdmin" v-on:click="loadAdminProducts" class="btn btn-light">Productos</button>
+                        <button v-if="gettingAdmin" v-on:click="loadAdminUsers" class="btn btn-light">Usuarios</button>
+                        
+
+                    </div>
+
+                </div>
+                
             </div>
-          </div>
-        </div>
+            
+            <main class="col ps-md-2 pt-2">
 
-        <main class="col ps-md-2 pt-2">
-          <div class="main-component">
-            <router-view
-              v-on:completedLogIn="completedLogIn"
-              v-on:completedSignUp="completedSignUp"
-              v-on:logOut="logOut"
-            >
-            </router-view>
-          </div>
-        </main>
-      </div>
+              <div class = "main-component">
+                <router-view
+                  v-on:completedLogIn="completedLogIn"
+                  v-on:completedSignUp="completedSignUp"
+                  v-on:logOut="logOut"
+                  v-on:getCartItems="getCartItems"
+                >
+                </router-view>
+
+              </div>
+            </main>
+        </div>
     </div>
 
     <footer id="footer" class="footer">
       <div>
-        <button v-on:click="loadHome">Guarderia</button>
-        <button v-on:click="loadProducts">Productos</button>
-        <button v-on:click="loadAboutUs">Acerca de nosotros</button>
+          <p>Guarderia</p>
+          <p>Acerca de</p>
+          <p>Sobre Nosotros</p>
       </div>
     </footer>
+
   </div>
 </template>
 
@@ -110,20 +93,53 @@ export default {
       set: function () {},
     },
     gettingAdmin: {
-      get: function () {
-        if (localStorage.getItem("is_admin") === "true")
-          return (this.is_admin = true);
-        else return (this.is_admin = false);
+      get: function(){
+          return JSON.parse(localStorage.getItem("is_admin"))
+
       },
-      set: function () {},
+      set: function(){}
     },
+
+    gettingId: {
+      get: function(){
+        try{
+          return this.userId = localStorage.getItem("user_Id") || null;
+        }
+        catch{
+          return " "
+        } 
+      },
+      set: function(){ }
+    },
+
+    gettingCarItemNum:{
+      get: function(){
+        return this.cartItems || ""
+      },
+      set: function(){}
+    },
+
+    gettingLoggedState:{
+      get: function(){
+          return this.loggedOk = JSON.parse(localStorage.getItem("logged_Ok")) || false
+
+      },
+      set: function(){
+
+      }
+    }
+    
+
   },
 
   data: function () {
     return {
       is_admin: "",
       username: "",
-    };
+      loggedOk: false,
+      userId: "",
+      cartItems: ""
+    }
   },
 
   methods: {
@@ -168,7 +184,10 @@ export default {
       localStorage.setItem("token_refresh", data.token_refresh);
       await this.getUserData();
       alert("Autenticación Exitosa");
-      this.loadUserProducts();
+			this.loadUserInfo();
+      this.loggedOk = true;
+      localStorage.setItem("logged_Ok",true);
+      //location.reload();
     },
 
     completedSignUp: function (data) {
@@ -177,14 +196,28 @@ export default {
     },
 
     logOut: function () {
-      localStorage.clear();
-      alert("Sesión Cerrada");
+			localStorage.clear();
+      this.loggedOk = false;
+      localStorage.setItem("logged_Ok",false);
       this.loadLogIn();
-      location.reload();
+      this.$forceUpdate();
+			alert("Sesión Cerrada");
+      location.reload()
+		},
+
+    getCartItems: function(cartData){
+      let myXD = ""
+      try{
+        myXD = parseInt(cartData)
+      }
+      catch{
+        myXD = " "
+      }
+      this.cartItems = myXD;
     },
 
-    getUserData: async function () {
-      await this.$apollo
+    getUserData: async function(){
+        await this.$apollo
         .query({
           query: gql`
             query UserDetailById {
@@ -200,16 +233,17 @@ export default {
           `,
         })
         .then((result) => {
-          let dataGet = {
-            id: result.data.userDetailById.id,
-            username: result.data.userDetailById.username,
-            name: result.data.userDetailById.name,
-            email: result.data.userDetailById.email,
-            phone: result.data.userDetailById.phone,
-            admin: result.data.userDetailById.admin,
-          };
-          localStorage.setItem("is_admin", dataGet.admin);
-          localStorage.setItem("username", dataGet.username);
+            let dataGet = {
+                    id: result.data.userDetailById.id,
+                    username: result.data.userDetailById.username,
+                    name: result.data.userDetailById.name,
+                    email: result.data.userDetailById.email,
+                    phone: result.data.userDetailById.phone,
+                    admin: result.data.userDetailById.admin
+            };
+            localStorage.setItem("is_admin", dataGet.admin);
+            localStorage.setItem("username", dataGet.username);
+            localStorage.setItem("user_Id", dataGet.id);
         })
         .catch((error) => {
           console.log(error);

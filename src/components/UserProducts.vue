@@ -1,23 +1,58 @@
 <template>
 
-<div>
-    <button>Toggler</button>
-        <div class ="cuerpo">
-        <br>
-        <div class ="catalogue">
-            <ul class="card-wrapper">
-                
-                    <li class="card" v-for="product in products" v-bind:key="product.id">
-                    <img :src="product.imgSrc" alt=''>
-                    <h3><a href="/producto">{{product.name}}</a></h3>
-                    <p>${{product.price}}</p>
-                </li>
-                
-                
-            </ul>
-        </div> 
-    </div>    
-</div>
+    <div class="container-grid">
+        <h2>Mis Productos</h2>
+       
+        <div class="container" >
+            <table class="table table-hover" >
+            <thead>
+                <tr>
+                    <th scope="col">Id Producto</th>
+                    <th scope="col">Cantidad</th>
+                    <!-- <th scope="col">imgSource</th> -->
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="userProduct in userProducts" v-bind:key="userProduct.id">
+                    <td>{{userProduct.productId}}</td>
+                    <td>{{userProduct.quantity}}</td>
+                    <!-- <td>{{product.imgSrc.substring(0,3)}}</td> -->
+                    <td>
+                        <button v-on:click="getDeleteProductId(userProduct.productId)" type="bustton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Delete">Borrar</button>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Escribe id para borrar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <h3> ¿Estas seguro de borrar tu producto? "<span>{{idUserProductDelete}}</span>"?</h3>
+                <!-- <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Id:</label>
+                    <input type="text" class="form-control" id="recipient-name" >
+                </div> -->
+                <!-- <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Message:</label>
+                    <textarea class="form-control" id="message-text"></textarea>
+                </div> -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button data-bs-dismiss="modal" v-on:click="deleteUserProduct" type="button" class="btn btn-danger">Borrar</button>
+            </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -26,77 +61,124 @@
 
 <script>   
 
-
+import gql from "graphql-tag";
 export default {
     name: "UserProducts",
 
+    // computed: {
+    //     reloadUserProducts:{
+    //         get: async function(){
+    //             await this.userProducts();
+    //             return userProducts;
+    //         }
+    //     }
+    // },
+
     data: function(){
         return {
-            product: [],
-            products: [],
-            createProduct: {
-                name: "",
-                price: 0,
-                service: false,
-                imgSrc: ""
+            userProducts: [],
+            userProduct: {
+                id: "",
+                userId: "",
+                productId: "",
+                quantity: "",
+                dateModified:""
             },
-            modifyProduct: {
-                name: "",
-                price: "",
-                service: false,
-                imgSrc: ""
-            },
-            idProductDelete: "",
-            idProductModi: ""
+            idUserProductDelete: "",
+            userLogged: ""
         }
     },
 
     methods: {
-        getUserData: async function(){
 
+     getUserData: async function(){
+         await this.$apollo
+         .query({
+         query: gql`
+             query UserDetailById {
+                 userDetailById {
+                     id
+                     username
+                     name
+                     email
+                     phone
+                     admin
+                 }
+             }
+             `,
+                
+         })
+         .then((result) => {
+            this.userLogged = result.data.userDetailById.id
+         })
+         .catch((error) => {
+             console.log(error)
+           alert("ERROR: Fallo getUserData");
+         });
+     },
+
+        getUserProducts: async function(){
             await this.$apollo
             .query({
             query: gql`
-                query UserDetailById {
-                    userDetailById {
+                query GetUserProductsByUserId($getUserProductsByUserIdId: Int!) {
+                    getUserProductsByUserId(id: $getUserProductsByUserIdId) {
                         id
-                        username
-                        name
-                        email
-                        phone
-                        admin
+                        userId
+                        productId
+                        quantity
+                        dateModified
                     }
                 }
-                `,
-                
+            `,
+            variables: {
+                getUserProductsByUserIdId: this.userLogged
+            },
             })
             .then((result) => {
-                let dataGet = {
-                        id: result.data.userDetailById.id,
-                        username: result.data.userDetailById.username,
-                        name: result.data.userDetailById.name,
-                        email: result.data.userDetailById.email,
-                        phone: result.data.userDetailById.phone,
-                        admin: result.data.userDetailById.admin
-                };
-                this.userInfo = dataGet;
+                this.userProducts = result.data.getUserProductsByUserId
+
             })
             .catch((error) => {
                 console.log(error)
-            alert("ERROR: Fallo geUserData");
+            alert("ERROR: Fallo getUserData");
             });
         },
 
-        deleteSoli: function(id) {
+        deleteUserProduct: async function(){
+            await this.$apollo
+            .mutate({
+            mutation: gql`
+            mutation DeleteUserProduct($productId: Int!) {
+                deleteUserProduct(productId: $productId)
+            }
+            `,
+            variables: {
+                productId: this.idUserProductDelete
+            }
+            })
+            .then((result) => {
+                alert("result.data.deleteUserProduct");
+                this.getUserProducts();
+                location.reload();
+            })
+            .catch((error) => {
+                console.log(error)
+            alert("ERROR: Fallo elimnando producto de usuario");
+            location.reload();
+            });
 
+            
         },
 
-        ModiSoli: function(id) {
-
+        getDeleteProductId: function(id){
+            this.idUserProductDelete = id;
         }
+
     },
     created: async function(){
-        this.getSolicitudesList();
+        await this.getUserData();
+        await this.getUserProducts();
     }
 }
 
@@ -105,7 +187,6 @@ export default {
 
 
 <style>
-
 
 
 </style>

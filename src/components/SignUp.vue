@@ -7,15 +7,8 @@
         <div class="d-flex flex-row align-items-center mb-4">
           <i class="fas fa-user fa-lg me-3 fa-fw"></i>
           <div class="form-outline flex-fill mb-0">
-            <label class="form-label" for="form3Example1c"
-              >Nombre de Usuario</label
-            >
-            <input
-              v-model="user.username"
-              type="text"
-              id="form3Example1c"
-              class="form-control"
-            />
+            <input v-model="user.username" type="text" id="form3Example1cxd" class="form-control" />
+            <label class="form-label" for="form3Example1cxd">Tu nombre de Usuario</label>
           </div>
         </div>
 

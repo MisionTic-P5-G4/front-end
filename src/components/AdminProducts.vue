@@ -34,6 +34,7 @@
         </div>
     </div>
 
+    <!--Delete-->
     <div class="modal fade" id="Delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div class="modal-dialog">
             <div class="modal-content">
@@ -44,14 +45,7 @@
             <div class="modal-body">
                 <form>
                     <h3> ¿Estas seguro de borrar producto con ID: <span>{{idProductDelete}}</span> ?</h3>
-                <!-- <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label">Id:</label>
-                    <input type="text" class="form-control" id="recipient-name" >
-                </div> -->
-                <!-- <div class="mb-3">
-                    <label for="message-text" class="col-form-label">Message:</label>
-                    <textarea class="form-control" id="message-text"></textarea>
-                </div> -->
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -61,6 +55,7 @@
         </div>
     </div>
 
+    <!--Add-->
     <div class="modal fade" id="Add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div class="modal-dialog">
             <div class="modal-content">
@@ -92,8 +87,8 @@
                 <div class="d-flex flex-row align-items-center mb-4">
                 <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                 <select class="dropDownCentroOpciones" v-model="createProduct.service">
-                    <option selected :value="true">Producto</option>
-                    <option :value="false">Servicio</option>
+                    <option selected :value="true">Servicio</option>
+                    <option :value="false">Producto</option>
                 </select>    
                 </div>
 
@@ -115,6 +110,7 @@
         </div>
     </div>
 
+    <!--Modify-->
     <div class="modal fade" id="Modify" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div class="modal-dialog">
             <div class="modal-content">
@@ -144,8 +140,8 @@
                 <div class="d-flex flex-row align-items-center mb-4">
                 <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                 <select class="dropDownCentroOpciones" v-model="modifyProduct.service" :placeholder="[[idProductModi.service]]">
-                    <option selected :value="true">Producto</option>
-                    <option :value="false">Servicio</option>
+                    <option selected :value="true">Servicio</option>
+                    <option :value="false">Producto</option>
                 </select>    
                 </div>
 
@@ -282,7 +278,12 @@ export default {
                 alert("Producto "+result.data.updateProduct.id+" Modificado");
                 this.getProductsList();
                 this.$forceUpdate();
-                this.modifyProduct = "";
+                // this.modifyProduct.id = "";
+                // this.modifyProduct.name = "";
+                // this.modifyProduct.price = 0;
+                // this.modifyProduct.service = false;
+                // this.modifyProduct.imgSrc = "";
+                
             })
             .catch((error) => {
             alert("ERROR: Fallo creando producto");
@@ -305,6 +306,7 @@ export default {
             .then((result) => {
                 this.getProductsList();
                 this.$forceUpdate();
+                location.reload();
                 alert(result.data.deleteProduct);
                 
             })
