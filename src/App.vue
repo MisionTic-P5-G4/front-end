@@ -186,7 +186,7 @@ export default {
 			localStorage.setItem("token_refresh", data.token_refresh);
       await this.getUserData();
       alert("Autenticación Exitosa");
-			this.loadUserProducts();
+			this.loadUserInfo();
       this.loggedOk = true;
       localStorage.setItem("logged_Ok",true);
       //location.reload();
@@ -204,6 +204,7 @@ export default {
       this.loadLogIn();
       this.$forceUpdate();
 			alert("Sesión Cerrada");
+      location.reload()
 		},
 
     getCartItems: function(cartData){

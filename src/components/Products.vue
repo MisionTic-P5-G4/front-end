@@ -263,6 +263,7 @@ import gql from "graphql-tag";
                     this.cartProducts.forEach(element => {
                         this.addUserProduct(element.id, element.quantity)
                     });
+                    alert("Comprados con éxito")
                 }
                 this.cartProducts.length = 0;
                 //alert("Comprados con éxito");
