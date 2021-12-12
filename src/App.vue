@@ -17,7 +17,7 @@
 
     <div class="container-fluid">
       <div class="row flex-nowrap">
-        <div v-if="is_auth" class="">
+        <div v-if="is_auth" class="col-auto px-0">
           <div
             id="sidebar"
             class="collapse collapse-horizontal show border-end"
@@ -67,7 +67,7 @@
           </div>
         </div>
 
-        <main class="">
+        <main class="col ps-md-2 pt-2">
           <div class="main-component">
             <router-view
               v-on:completedLogIn="completedLogIn"
@@ -245,6 +245,8 @@ body {
 
 header {
   width: 100%;
+  height: 10vh;
+
   background-color: #f29f05;
   color: white;
 
@@ -272,7 +274,7 @@ header nav button {
   color: white;
   background: #f29f05;
   border: 1px none #e5e7e9;
-  padding: 2rem;
+  padding: 10px 20px;
 }
 
 header nav button:hover {
@@ -290,9 +292,12 @@ header nav button:hover {
 
 footer {
   background-color: #ca7c16;
+  margin-top: 25px;
+  height: 80px;
+
+  padding: 10px 10px 0px 10px;
   bottom: 0;
   width: 100%;
-  padding: 1rem;
 }
 footer div {
   display: flex;
@@ -301,20 +306,8 @@ footer div {
   align-content: space-between;
   justify-content: space-between;
   color: white;
+  max-width: 1200px;
   margin: 0 auto;
-}
-
-
-footer button {
-  color: white;
-  background: #ca7c16;
-  border: 1px none #e5e7e9;
-}
-
-footer button:hover {
-  color: white;
-  background: #634610;
-  border: 1px none #e5e7e9;
 }
 
 footer nav {
@@ -326,6 +319,25 @@ footer nav {
   justify-content: space-around;
   color: white;
   float: right;
+}
+
+footer button {
+  color: white;
+  background: #ca7c16;
+  border: 1px none #e5e7e9;
+}
+footer button:hover {
+  color: white;
+  background: #634610;
+  border: 1px none #e5e7e9;
+}
+
+html {
+  background-color: white;
+}
+
+#sidebar-nav {
+  width: 200px;
 }
 
 .col-auto {

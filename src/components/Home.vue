@@ -45,61 +45,49 @@ export default {
     helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
   color: #444;
   background-color: #ffffff;
-
   overflow: hidden;
   animation: spin var(--duration) var(--delay) linear infinite;
   transform-style: preserve-3d;
   perspective: 25rem;
 }
-
 .cuerpo {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
-
 .cuerpo h1 {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   margin-top: 2rem;
 }
-
-.cuerpo p{
+.cuerpo p {
   text-align: justify;
 }
-
 img {
   border-radius: 0.5rem 0.5rem 0 0;
   width: 100%;
   object-fit: cover;
-
   max-height: max(20rem, 30vh);
   aspect-ratio: 4/3;
   mix-blend-mode: var(--card-blend-mode);
 }
-
 :last-child {
   margin-bottom: 0;
 }
-
 :hover,
 :focus-within {
   --card-gradient: #00000075 max(8.5rem, 20vh);
 }
-
 /* Additional demo display styles */
 * {
   box-sizing: border-box;
 }
-
 .card h3 {
   margin-top: 1rem;
   font-size: 1.25rem;
 }
-
 .card a {
   color: inherit;
 }
-
 .card-wrapper {
   list-style: none;
   padding: 0;
@@ -112,23 +100,18 @@ img {
   margin-left: 1rem;
   margin-right: 1rem;
 }
-
 :root {
   --duration: 20s;
   --delay: 20s;
 }
-
 .card1 {
   position: relative;
-
   width: 700px;
   height: 400px;
   overflow: hidden;
-
   border-radius: 5px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
-
 /*Light blue cover above the slide show*/
 .card1::after {
   content: "";
@@ -136,49 +119,39 @@ img {
   left: 0;
   top: 0;
   z-index: 900;
-
   display: block;
   width: 100%;
   height: 100%;
-
   background-color: rgba(140, 22, 115, 0.2);
 }
-
 .card_part {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 7;
-
   display: flex;
   align-items: center;
   width: 100%;
   height: 100%;
-
   transform: translateX(700px);
   background-image: url(https://images.unsplash.com/photo-1544568100-847a948585b9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
-
   animation: opaqTransition 28s cubic-bezier(0, 0, 0, 0.97) infinite;
 }
-
 .card_part.card_part-two {
   z-index: 6;
   background-image: url(https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
   animation-delay: 7s;
 }
-
 .card_part.card_part-three {
   z-index: 5;
   background-image: url(https://images.unsplash.com/photo-1510771463146-e89e6e86560e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
   animation-delay: 14s;
 }
-
 .card_part.card_part-four {
   z-index: 4;
   background-image: url(https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
   animation-delay: 21s;
 }
-
 @keyframes opaqTransition {
   3% {
     transform: translateX(0);

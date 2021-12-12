@@ -51,6 +51,7 @@ export default {
 .about-us {
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   justify-content: center;
   width: 100%;
   padding: 1rem;
@@ -59,12 +60,28 @@ export default {
 .cont h1 {
   margin-top: 1rem;
   display: flex;
+=======
+>>>>>>> dev-pruebas
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+}
+<<<<<<< HEAD
+
+=======
+.cont h1 {
+  margin-top: 1rem;
+  display: flex;
   justify-content: center;
 }
-
+>>>>>>> dev-pruebas
 .cont p {
   text-align: justify;
   margin-top: 1rem;
   margin-bottom: 2rem;
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> dev-pruebas
