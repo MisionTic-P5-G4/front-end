@@ -1,4 +1,5 @@
 <template>
+
 <div id="app" class="app">
 
     <header class="header">
@@ -77,20 +78,21 @@
 import gql from "graphql-tag";
 
 export default {
-  name: "App",
+
+  name: 'App',
 
   computed: {
     is_auth: {
-      get: function () {
+      get: function() {
         return this.$route.meta.requiresAuth;
       },
-      set: function () {},
+      set: function() { }
     },
     gettingUsername: {
-      get: function () {
-        return (this.username = localStorage.getItem("username") || "");
+      get: function() {
+        return this.username = localStorage.getItem("username") || "";
       },
-      set: function () {},
+      set: function() {}
     },
     gettingAdmin: {
       get: function(){
@@ -132,7 +134,7 @@ export default {
 
   },
 
-  data: function () {
+  data: function(){
     return {
       is_admin: "",
       username: "",
@@ -143,45 +145,45 @@ export default {
   },
 
   methods: {
-    loadLogIn: function () {
-      this.$router.push({ name: "logIn" });
+    loadLogIn: function(){
+      this.$router.push({name: "logIn"});
     },
 
-    loadSignUp: function () {
-      this.$router.push({ name: "signUp" });
+    loadSignUp: function(){
+      this.$router.push({name: "signUp"})
     },
 
-    loadHome: function () {
+    loadHome: function() {
       this.$router.push({ name: "home" });
     },
 
-    loadProducts: function () {
+    loadProducts: function() {
       this.$router.push({ name: "products" });
     },
 
-    loadAboutUs: function () {
+    loadAboutUs: function() {
       this.$router.push({ name: "about" });
     },
 
-    loadAdminProducts: function () {
+    loadAdminProducts: function() {
       this.$router.push({ name: "AdminProducts" });
     },
 
-    loadAdminUsers: function () {
+    loadAdminUsers: function() {
       this.$router.push({ name: "AdminUsers" });
     },
 
-    loadUserInfo: function () {
+    loadUserInfo: function() {
       this.$router.push({ name: "UserInfo" });
     },
 
-    loadUserProducts: function () {
-      this.$router.push({ name: "UserProducts" });
+    loadUserProducts: function() {
+      this.$router.push({ name: "UserProducts"});
     },
 
-    completedLogIn: async function (data) {
-      localStorage.setItem("token_access", data.token_access);
-      localStorage.setItem("token_refresh", data.token_refresh);
+    completedLogIn: async function(data) {
+			localStorage.setItem("token_access", data.token_access);
+			localStorage.setItem("token_refresh", data.token_refresh);
       await this.getUserData();
       alert("Autenticación Exitosa");
 			this.loadUserInfo();
@@ -190,9 +192,9 @@ export default {
       //location.reload();
     },
 
-    completedSignUp: function (data) {
-      alert("Registro Exitoso");
-      this.completedLogIn(data);
+    completedSignUp: function(data) {
+			alert("Registro Exitoso");
+			this.completedLogIn(data);
     },
 
     logOut: function () {
@@ -219,18 +221,19 @@ export default {
     getUserData: async function(){
         await this.$apollo
         .query({
-          query: gql`
+        query: gql`
             query UserDetailById {
-              userDetailById {
-                id
-                username
-                name
-                email
-                phone
-                admin
-              }
+                userDetailById {
+                    id
+                    username
+                    name
+                    email
+                    phone
+                    admin
+                }
             }
-          `,
+            `,
+                
         })
         .then((result) => {
             let dataGet = {
@@ -246,160 +249,148 @@ export default {
             localStorage.setItem("user_Id", dataGet.id);
         })
         .catch((error) => {
-          console.log(error);
+            console.log(error)
           alert("ERROR: Fallo geUserData");
         });
-    },
+    }
+
   },
-};
+
+}
 </script>
 
 
 <style>
-*,
-*:after,
-*:before {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
+
+
+  body {
+    margin: 0 0 0 0;
+    background-color: #FDFEFE;
+  }
+
+  header{
+    margin: 0%;
+    padding: 0;
+    width: 100%;
+    height: 10vh;
+    min-height: 100px;
+    
+    background-color: #F29F05;
+    color: white; 
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 25px;
+    top: 0; 
+  }
+
+  header nav{
+      width: 100%;
+      height: 100%;
+
+      background-color: #F29F05;
+      color: white; 
+
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+  }
+
+  header nav button{
+    color: white;
+    background: #F29F05;
+    border: 1px none #E5E7E9;
+    padding: 10px 20px;
+  }
+
+  header nav button:hover{
+    color: white;
+    background: #634610;
+    border: 1px none #E5E7E9;
+  }
+
+  .main-component{
+    margin: 0%;
+    padding: 0%;
+
+    background: #FDFEFE ;
+  }
+
+
+  footer{
+        
+        background-color: #ca7c16;    
+        margin-top: 25px; 
+        height: 80px;
+        
+        padding: 10px 10px 0px 10px;
+        bottom: 0;
+        width: 100%;
+        
+    }
+  footer div{
+        display: flex;
+        height: 100%;
+        align-items: center;
+        align-content: space-between;
+        justify-content: space-between;
+        color: white; 
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+ footer nav{
+    width: 100%;
+    height: 100%;
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: white; 
+    float: right;
+
+  }
+
+  html{
+    background-color: white;
+  }
+
+ #sidebar-nav {
+    width: 200px;
 }
 
-body {
-  justify-content: center;
-  justify-items: center;
-  margin: 0 0 0 0;
-  background-color: #fdfefe;
+.col-auto{
+
+    background-color: rgb(204, 204, 204);
+
 }
 
-.app {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+.container-fluid{
+    /*color: white;*/
+    background-color: rgb(255, 255, 255);
+    z-index: 1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    padding: 0.5em;
+
+    display: flex;
+    flex-direction: column;
 }
 
-header {
-  width: 100%;
-  height: 10vh;
-
-  background-color: #f29f05;
-  color: white;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin-bottom: 25px;
-  top: 0;
-}
-
-header nav {
-  width: 100%;
-  height: 100%;
-
-  background-color: #f29f05;
-  color: white;
-
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-header nav button {
-  color: white;
-  background: #f29f05;
-  border: 1px none #e5e7e9;
-  padding: 10px 20px;
-}
-
-header nav button:hover {
-  color: white;
-  background: #634610;
-  border: 1px none #e5e7e9;
-}
-
-.main-component {
-  margin: 0%;
-  padding: 0%;
-
-  background: #fdfefe;
-}
-
-footer {
-  background-color: #ca7c16;
-  margin-top: 25px;
-  height: 80px;
-
-  padding: 10px 10px 0px 10px;
-  bottom: 0;
-  width: 100%;
-}
-footer div {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  align-content: space-between;
-  justify-content: space-between;
-  color: white;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-footer nav {
-  width: 100%;
-  height: 100%;
-  padding: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  color: white;
-  float: right;
-}
-
-footer button {
-  color: white;
-  background: #ca7c16;
-  border: 1px none #e5e7e9;
-}
-footer button:hover {
-  color: white;
-  background: #634610;
-  border: 1px none #e5e7e9;
-}
-
-html {
-  background-color: white;
-}
-
-#sidebar-nav {
-  width: 200px;
-}
-
-.col-auto {
-  background-color: rgb(204, 204, 204);
-}
-
-.container-fluid {
-  /*color: white;*/
-  background-color: rgb(255, 255, 255);
-  z-index: 1;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  padding: 0.5em;
-
-  display: flex;
-  flex-direction: column;
-}
-
-.btn {
+.btn{
   margin: 1px;
 }
 
-h2 {
+h2{
   text-align: center;
 }
 
-.divider {
-  color: rgb(119, 119, 119);
+.divider{
+  color: rgb(119, 119, 119)
 }
+
 </style>

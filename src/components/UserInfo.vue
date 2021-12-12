@@ -8,7 +8,7 @@
 
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">Nombre de usuario</h6>
+                        <h6 class="mb-0">Username</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input type="text" v-model="modifyUser.username" class="form-control" :placeholder="[[userInfo.username]]">
@@ -17,7 +17,7 @@
 
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">Nombre registrado</h6>
+                        <h6 class="mb-0">Nombre</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input type="text" v-model="modifyUser.name" class="form-control" :placeholder="[[userInfo.name]]">
@@ -26,7 +26,7 @@
 
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">Correo electrónico</h6>
+                        <h6 class="mb-0">Email</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input type="email" v-model="modifyUser.email" class="form-control" :placeholder="[[userInfo.email]]">
@@ -35,7 +35,7 @@
 
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">Número telefónico</h6>
+                        <h6 class="mb-0">Telefono</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input type="number" v-model="modifyUser.phone" class="form-control" :placeholder="[[userInfo.phone]]">
@@ -44,7 +44,7 @@
 
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">¿Es administrador?</h6>
+                        <h6 class="mb-0">Estado Admin</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input type="text" v-model="modifyUser.admin" class="form-control" :placeholder="[[userInfo.admin]]">
@@ -85,7 +85,7 @@
                             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
                                 <input v-model="modifyUser.username" type="text" id="form3Example1c" class="form-control" :placeholder="[[userInfo.username]]" />
-                                <label class="form-label" for="form3Example1c">Nombre de usuario</label>
+                                <label class="form-label" for="form3Example1c">Nombre de Usuario</label>
                             </div>
                             </div>
 
@@ -101,7 +101,7 @@
                             <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
                                 <input v-model="modifyUser.name" type="text" id="form3Example4cd" class="form-control" :placeholder="[[userInfo.name]]" />
-                                <label class="form-label" for="form3Example4cd">Nombre registrado</label>
+                                <label class="form-label" for="form3Example4cd">Nombre</label>
                             </div>
                             </div>
 
@@ -109,7 +109,7 @@
                             <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
                                 <input v-model="modifyUser.email" type="text" id="form3Example3c" class="form-control" :placeholder="[[userInfo.email]]" />
-                                <label class="form-label" for="form3Example3c">Correo electrónico</label>
+                                <label class="form-label" for="form3Example3c">Email</label>
                             </div>
                             </div>
 
@@ -125,7 +125,7 @@
                             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
                                 <input v-model="modifyUser.admin" type="text" id="form3Example1cdf" class="form-control" :placeholder="[[userInfo.admin]]" />
-                                <label class="form-label" for="form3Example1cdf">¿Es administrador?</label>
+                                <label class="form-label" for="form3Example1cdf">¿Es admin?</label>
                             </div>
                             </div>
 
@@ -297,7 +297,10 @@ export default {
 </script>
 
 <style>
-
+body{
+    background: #f7f7ff;
+    margin-top:20px;
+}
 .card {
     position: relative;
     display: flex;

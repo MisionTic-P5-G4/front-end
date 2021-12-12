@@ -42,12 +42,15 @@
 
 <script>
 export default {
-  name: "AboutUs",
-  setup() {},
-};
+  name: 'AboutUs',
+  setup() {
+    
+  },
+}
 </script>
 
 <style>
+
 .about-us {
   display: flex;
   flex-direction: column;
@@ -65,4 +68,5 @@ export default {
   margin-top: 1rem;
   margin-bottom: 2rem;
 }
+
 </style>
