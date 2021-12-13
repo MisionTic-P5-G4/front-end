@@ -32,8 +32,7 @@
       <p>
         Ser una guardería líder y reconocida a nivel nacional como la mejor tienda virtual,
          en la promoción del bienestar animal mediante nuestros servicios de primera calidad 
-         y tecnología basándonos en la seguridad que
-        ofrecemos a nuestros clientes.
+         y tecnología.
       </p>
     </div>
   </div>
