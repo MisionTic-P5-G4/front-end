@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-3">
+                <div class="row mb-3" v-if="is_admin">
                     <div class="col-sm-3">
                         <h6 class="mb-0">Estado Admin</h6>
                     </div>
@@ -121,12 +121,12 @@
                             </div>
                             </div>
 
-                            <div class="d-flex flex-row align-items-center mb-4">
-                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                            <div class="form-outline flex-fill mb-0">
-                                <input v-model="modifyUser.admin" type="text" id="form3Example1cdf" class="form-control" :placeholder="[[userInfo.admin]]" />
-                                <label class="form-label" for="form3Example1cdf">¿Es admin?</label>
-                            </div>
+                            <div class="d-flex flex-row align-items-center mb-4" v-if="is_admin">
+                            <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                            <select class="dropDownCentroOpciones" v-model="modifyUser.admin" :placeholder="[[userInfo.admin]]">
+                                <option selected :value="true">Admin</option>
+                                <option :value="false">No admin</option>
+                            </select>    
                             </div>
 
                         </form>
@@ -177,7 +177,7 @@ export default {
     data: function() {
         return {
           userInfo: {
-              id: "",
+              id: 0,
               username: "",
               name: "",
               email: "",
@@ -189,8 +189,8 @@ export default {
                 password: "",
                 name: "",
                 email: "",
-                phone: "",
-                admin: "",
+                phone: 0,
+                admin: false,
             },
         };
     },

@@ -131,7 +131,7 @@ export default {
                 phone: "",
                 admin: false,
             },
-            userModi: ""
+            userModi: 0
         }
     },
 
