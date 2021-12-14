@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-3" v-if="is_admin">
+                <div class="row mb-3" v-if="userInfo.admin">
                     <div class="col-sm-3">
                         <h6 class="mb-0">Estado Admin</h6>
                     </div>
@@ -121,7 +121,7 @@
                             </div>
                             </div>
 
-                            <div class="d-flex flex-row align-items-center mb-4" v-if="is_admin">
+                            <div class="d-flex flex-row align-items-center mb-4" v-if="userInfo.admin">
                             <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                             <select class="dropDownCentroOpciones" v-model="modifyUser.admin" :placeholder="[[userInfo.admin]]">
                                 <option selected :value="true">Admin</option>
