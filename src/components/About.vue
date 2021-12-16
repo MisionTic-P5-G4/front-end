@@ -30,11 +30,9 @@
     <div class="cont">
       <h1>VISIÓN</h1>
       <p>
-        consolidarnos como la empresa líder en la rama del Billar y Casino
-        D`elite, reconocida por ofrecer un concepto diferente en diversión,
-        dándole un momento increíble al cliente, como que escojan ellos la
-        música que más le guste. Por media hora basándonos en la seguridad que
-        ofrecemos a nuestros clientes.
+        Ser una guardería líder y reconocida a nivel nacional como la mejor tienda virtual,
+         en la promoción del bienestar animal mediante nuestros servicios de primera calidad 
+         y tecnología.
       </p>
     </div>
   </div>
