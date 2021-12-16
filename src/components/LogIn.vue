@@ -15,18 +15,18 @@
 
             <!-- Email input -->
             <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example3">Nombre de usuario </label>
                 <input type="text" id="form3Example3" class="form-control form-control-lg"
                 v-model="user.username"
                 placeholder="Ingresa un username" />
-                <label class="form-label" for="form3Example3">Username </label>
             </div>
 
             <!-- Password input -->
             <div class="form-outline mb-3">
+                <label class="form-label" for="form3Example4">Contraseña</label>
                 <input type="password" id="form3Example4" class="form-control form-control-lg"
                 v-model="user.password"
                 placeholder="Ingresa contraseña" />
-                <label class="form-label" for="form3Example4">Password</label>
             </div>
 
             <div class="text-center text-lg-start mt-4 pt-2">
@@ -34,7 +34,7 @@
                  
                 style="padding-left: 2.5rem; padding-right: 2.5rem;" >Ingresar</button>
                 <p class="small fw-bold mt-2 pt-1 mb-0">¿No tienes una cuenta? <a href="/SignUp"
-                    class="link-danger">Rgístrate</a></p>
+                    class="link-danger">Regístrate</a></p>
             </div>
 
             </form>

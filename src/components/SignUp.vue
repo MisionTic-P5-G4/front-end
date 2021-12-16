@@ -8,40 +8,40 @@
         <div class="d-flex flex-row align-items-center mb-4">
           <i class="fas fa-user fa-lg me-3 fa-fw"></i>
           <div class="form-outline flex-fill mb-0">
+            <label class="form-label" for="form3Example1cxd">Nombre de usuario</label>
             <input v-model="user.username" type="text" id="form3Example1cxd" class="form-control" />
-            <label class="form-label" for="form3Example1cxd">Tu nombre de Usuario</label>
           </div>
         </div>
 
         <div class="d-flex flex-row align-items-center mb-4">
           <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
           <div class="form-outline flex-fill mb-0">
+            <label class="form-label" for="form3Example4c">Contraseña</label>
             <input v-model="user.password" type="password" id="form3Example4c" class="form-control" />
-            <label class="form-label" for="form3Example4c">Tu contraseña</label>
           </div>
         </div>
 
         <div class="d-flex flex-row align-items-center mb-4">
           <i class="fas fa-key fa-lg me-3 fa-fw"></i>
           <div class="form-outline flex-fill mb-0">
+            <label class="form-label" for="form3Example4cd">Nombre completo</label>
             <input v-model="user.name" type="text" id="form3Example4cd" class="form-control" />
-            <label class="form-label" for="form3Example4cd">Tu nombre</label>
           </div>
         </div>
 
         <div class="d-flex flex-row align-items-center mb-4">
           <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
           <div class="form-outline flex-fill mb-0">
+            <label class="form-label" for="form3Example3c">Correo electrónico</label>
             <input v-model="user.email" type="text" id="form3Example3c" class="form-control" />
-            <label class="form-label" for="form3Example3c">Your Email</label>
           </div>
         </div>
 
         <div class="d-flex flex-row align-items-center mb-4">
           <i class="fas fa-user fa-lg me-3 fa-fw"></i>
           <div class="form-outline flex-fill mb-0">
+            <label class="form-label" for="form3Example1c">Número de contacto</label>
             <input v-model="user.phone" type="text" id="form3Example1c" class="form-control" />
-            <label class="form-label" for="form3Example1c">Tu número telefónico</label>
           </div>
         </div>
 
